@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Juegos de Burbujas</title>
+  <style>
+    body { margin:0; background:#000; color:#fff; font-family:monospace; text-align:center; }
+    #menu { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); }
+    button {
+      display:block; margin:10px auto; padding:10px 20px;
+      background:#222; color:#9be7a6; border:1px solid #9be7a6;
+      border-radius:8px; font-size:16px; cursor:pointer;
+    }
+    #preguntaArea {
+      position: absolute; top: 10px; right: 10px;
+      background: rgba(0,0,0,0.75); color: #fff;
+      padding: 12px; font-size:16px; border-radius:6px; z-index:12;
+      min-width:220px; max-width:420px; display:none;
+    }
+    #preguntaEstado { margin-top:8px; font-size:14px; color:#9be7a6; }
+    #mensajeFinal {
+      position: absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+      color:#fff; background:rgba(0,0,0,0.75); padding:20px;
+      border-radius:8px; font-size:20px; display:none; z-index:20;
+    }
+  </style>
+</head>
+<body>
+<div id="menu">
+  <h1>Elige un Juego</h1>
+  <button onclick="startTunel()">Juego: Túnel</button>
+  <button onclick="startBals()">Juego: Esfera Flotante</button>
+</div>
+
+<div id="preguntaArea">Cargando...<div id="preguntaEstado"></div></div>
+<div id="mensajeFinal"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+<script src="engine.js"></script>
+<script src="tunel.js"></script>
+<script src="bals.js"></script>
+<script>
+const preguntas = [
+  { question: 'I had been', translation: 'HABÍA ESTADO' },
+  { question: 'I was', translation: 'ESTABA' },
+  { question: 'During that time I was', translation: 'ESTUVE' },
+  { question: 'I have been', translation: 'HE ESTADO' },
+  { question: 'I am (present)', translation: 'ESTOY' },
+  { question: 'I will be', translation: 'ESTARÉ' },
+  { question: 'I would be', translation: 'ESTARÍA' },
+  { question: 'If I were', translation: 'SI ESTUVIERA' },
+  { question: 'I would have been', translation: 'HABRÍA ESTADO' }
+];
+
+function startTunel(){
+  document.getElementById('menu').style.display='none';
+  document.getElementById('preguntaArea').style.display='block';
+  new TunelGame({preguntas}).start();
+}
+function startBals(){
+  document.getElementById('menu').style.display='none';
+  document.getElementById('preguntaArea').style.display='block';
+  new BalsGame({preguntas}).start();
+}
+</script>
+</body>
+</html>
