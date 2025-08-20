@@ -55,19 +55,21 @@ class GameEngine {
     return new THREE.Sprite(mat);
   }
 
-  createBubble(text, radius=100) {
-    const geom=new THREE.SphereGeometry(radius,32,32);
-    const mat=new THREE.MeshBasicMaterial({
-      color:new THREE.Color().setHSL(Math.random(),0.7,0.5),
-      transparent:true, opacity:0.5, depthWrite:false
-    });
-    const sphere=new THREE.Mesh(geom,mat);
-    const sprite=this.makeTextSprite(text);
-    const group=new THREE.Object3D();
-    group.add(sphere); group.add(sprite);
-    group.userData={ sphere, baseColor: mat.color.clone() };
-    return group;
-  }
+ createBubble(text, radius=100) {
+  const geom = new THREE.SphereGeometry(radius, 32, 32);
+  const mat = new THREE.MeshBasicMaterial({
+    color: new THREE.Color().setHSL(Math.random(), 0.7, 0.5),
+    transparent:true, opacity:0.5, depthWrite:false
+  });
+  const sphere = new THREE.Mesh(geom, mat);
+  const sprite = this.makeTextSprite(text);
+  sprite.scale.set(radius*1.6, radius*0.65, 1); // <- proporción uniforme al radio
+
+  const group = new THREE.Object3D();
+  group.add(sphere); group.add(sprite);
+  group.userData = { sphere, baseColor: mat.color.clone() };
+  return group;
+}
 
   start(){ this.animate(); }
   animate(now=performance.now()){
@@ -99,3 +101,4 @@ class GameEngine {
   onResize(){} // override
   onSelect(vec2){} // override
 }
+
